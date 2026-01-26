@@ -1,0 +1,49 @@
+name: Hourly Brain Update
+
+on:
+  schedule:
+    # Runs at minute 0 past every hour (Matches your screenshot)
+    - cron: '0 * * * *'
+  # Allows you to click "Run Now" manually for testing
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update-data:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Check out the repository code
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      # 2. Install Python
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      # 3. Install Libraries
+      - name: Install Dependencies
+        run: |
+          pip install -r requirements.txt
+      # 4. Run your Analysis Script
+      - name: Run Analysis
+        run: python main.py
+
+      # 5. Save the updated JSON back to GitHub
+      - name: Commit and Push Changes
+        run: |
+          git config --global user.name "IndraBot"
+          git config --global user.email "bot@indra.ai"
+          
+          # Check if there are changes (only commit if data changed)
+          if [[ -n $(git status -s) ]]; then
+            git add .
+            git commit -m "🧠 Auto-update: Market patterns refreshed"
+            git push
+          else
+            echo "No changes in market data. Skipping push."
+          fi
