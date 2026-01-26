@@ -1,0 +1,4 @@
+pandas
+numpy
+yfinance
+protobuf>=3.20,<4
