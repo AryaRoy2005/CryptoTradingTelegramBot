@@ -105,13 +105,13 @@
     "DUMP_SMALL"
   ],
   [
-    "PUMP_SMALL",
-    "DUMP_SMALL",
+    "PUMP_HUGE",
+    "STABLE",
     "STABLE"
   ],
   [
-    "PUMP_HUGE",
-    "STABLE",
+    "PUMP_SMALL",
+    "DUMP_SMALL",
     "STABLE"
   ],
   [
