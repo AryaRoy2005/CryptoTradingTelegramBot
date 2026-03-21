@@ -41,12 +41,12 @@
   ],
   [
     "STABLE",
-    "PUMP_SMALL",
+    "DUMP_HUGE",
     "DUMP_SMALL"
   ],
   [
     "STABLE",
-    "DUMP_HUGE",
+    "PUMP_SMALL",
     "DUMP_SMALL"
   ],
   [
