@@ -65,6 +65,11 @@
     "PUMP_SMALL"
   ],
   [
+    "DUMP_SMALL",
+    "DUMP_SMALL",
+    "DUMP_SMALL"
+  ],
+  [
     "STABLE",
     "DUMP_SMALL",
     "PUMP_SMALL"
@@ -83,11 +88,6 @@
     "DUMP_SMALL",
     "STABLE",
     "STABLE"
-  ],
-  [
-    "DUMP_SMALL",
-    "DUMP_SMALL",
-    "DUMP_SMALL"
   ],
   [
     "DUMP_SMALL",
