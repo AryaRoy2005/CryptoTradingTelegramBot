@@ -126,13 +126,13 @@
   ],
   [
     "STABLE",
-    "STABLE",
-    "DUMP_SMALL"
+    "DUMP_HUGE",
+    "STABLE"
   ],
   [
     "STABLE",
-    "DUMP_HUGE",
-    "STABLE"
+    "STABLE",
+    "DUMP_SMALL"
   ],
   [
     "STABLE",
