@@ -10,14 +10,14 @@
     "DUMP_SMALL"
   ],
   [
-    "DUMP_HUGE",
-    "DUMP_SMALL",
-    "STABLE"
-  ],
-  [
     "STABLE",
     "DUMP_SMALL",
     "DUMP_SMALL"
+  ],
+  [
+    "DUMP_HUGE",
+    "DUMP_SMALL",
+    "STABLE"
   ],
   [
     "STABLE",
