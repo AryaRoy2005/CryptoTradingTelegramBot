@@ -10,12 +10,12 @@
     "DUMP_SMALL"
   ],
   [
-    "PUMP_SMALL",
+    "STABLE",
     "PUMP_SMALL",
     "DUMP_SMALL"
   ],
   [
-    "STABLE",
+    "PUMP_SMALL",
     "PUMP_SMALL",
     "DUMP_SMALL"
   ],
@@ -28,6 +28,11 @@
     "STABLE",
     "DUMP_SMALL",
     "PUMP_SMALL"
+  ],
+  [
+    "DUMP_SMALL",
+    "DUMP_SMALL",
+    "DUMP_SMALL"
   ],
   [
     "PUMP_HUGE",
@@ -35,19 +40,14 @@
     "STABLE"
   ],
   [
-    "DUMP_SMALL",
-    "PUMP_SMALL",
-    "STABLE"
-  ],
-  [
-    "DUMP_SMALL",
-    "DUMP_SMALL",
-    "DUMP_SMALL"
-  ],
-  [
     "PUMP_SMALL",
     "DUMP_SMALL",
     "PUMP_SMALL"
+  ],
+  [
+    "DUMP_SMALL",
+    "PUMP_SMALL",
+    "STABLE"
   ],
   [
     "STABLE",
@@ -55,39 +55,39 @@
     "DUMP_SMALL"
   ],
   [
+    "DUMP_SMALL",
+    "PUMP_SMALL",
+    "DUMP_SMALL"
+  ],
+  [
+    "DUMP_SMALL",
+    "STABLE",
+    "DUMP_SMALL"
+  ],
+  [
+    "DUMP_SMALL",
+    "STABLE",
+    "STABLE"
+  ],
+  [
+    "DUMP_SMALL",
+    "DUMP_SMALL",
+    "STABLE"
+  ],
+  [
     "STABLE",
     "PUMP_SMALL",
     "PUMP_SMALL"
   ],
   [
-    "DUMP_SMALL",
-    "STABLE",
-    "DUMP_SMALL"
-  ],
-  [
-    "DUMP_SMALL",
-    "DUMP_SMALL",
-    "STABLE"
-  ],
-  [
-    "DUMP_SMALL",
     "PUMP_SMALL",
-    "DUMP_SMALL"
-  ],
-  [
-    "DUMP_SMALL",
     "STABLE",
-    "STABLE"
+    "DUMP_SMALL"
   ],
   [
     "PUMP_SMALL",
     "PUMP_SMALL",
     "STABLE"
-  ],
-  [
-    "PUMP_SMALL",
-    "STABLE",
-    "DUMP_SMALL"
   ],
   [
     "STABLE",
@@ -96,12 +96,27 @@
   ],
   [
     "PUMP_SMALL",
-    "DUMP_SMALL",
+    "STABLE",
     "STABLE"
   ],
   [
     "PUMP_SMALL",
+    "DUMP_SMALL",
+    "STABLE"
+  ],
+  [
     "STABLE",
+    "DUMP_SMALL",
+    "STABLE"
+  ],
+  [
+    "STABLE",
+    "STABLE",
+    "PUMP_SMALL"
+  ],
+  [
+    "STABLE",
+    "PUMP_SMALL",
     "STABLE"
   ],
   [
@@ -110,27 +125,12 @@
     "DUMP_SMALL"
   ],
   [
-    "STABLE",
     "DUMP_SMALL",
-    "STABLE"
-  ],
-  [
-    "STABLE",
     "STABLE",
     "PUMP_SMALL"
   ],
   [
-    "STABLE",
     "PUMP_SMALL",
-    "STABLE"
-  ],
-  [
-    "PUMP_SMALL",
-    "STABLE",
-    "PUMP_SMALL"
-  ],
-  [
-    "DUMP_SMALL",
     "STABLE",
     "PUMP_SMALL"
   ],
