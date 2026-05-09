@@ -31,13 +31,13 @@
   ],
   [
     "STABLE",
-    "DUMP_SMALL",
-    "PUMP_SMALL"
+    "DUMP_HUGE",
+    "STABLE"
   ],
   [
     "STABLE",
-    "DUMP_HUGE",
-    "STABLE"
+    "DUMP_SMALL",
+    "PUMP_SMALL"
   ],
   [
     "PUMP_SMALL",
