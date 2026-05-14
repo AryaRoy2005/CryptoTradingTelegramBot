@@ -56,13 +56,13 @@
   ],
   [
     "STABLE",
-    "DUMP_HUGE",
-    "DUMP_SMALL"
+    "PUMP_SMALL",
+    "PUMP_SMALL"
   ],
   [
     "STABLE",
-    "PUMP_SMALL",
-    "PUMP_SMALL"
+    "DUMP_HUGE",
+    "DUMP_SMALL"
   ],
   [
     "DUMP_SMALL",
