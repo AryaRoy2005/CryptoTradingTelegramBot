@@ -1,157 +1,252 @@
 [
   [
-    "STABLE",
-    "STABLE",
-    "PUMP_HUGE"
+    "LV_DUMP_SMALL",
+    "LV_STABLE",
+    "HV_PUMP_SMALL"
   ],
   [
-    "STABLE",
-    "DUMP_SMALL",
-    "DUMP_SMALL"
+    "LV_STABLE",
+    "HV_PUMP_SMALL",
+    "HV_DUMP_SMALL"
   ],
   [
-    "STABLE",
-    "PUMP_SMALL",
-    "DUMP_SMALL"
+    "HV_DUMP_SMALL",
+    "HV_PUMP_SMALL",
+    "HV_STABLE"
   ],
   [
-    "DUMP_SMALL",
-    "PUMP_SMALL",
-    "PUMP_SMALL"
+    "HV_STABLE",
+    "LV_PUMP_SMALL",
+    "LV_DUMP_SMALL"
   ],
   [
-    "PUMP_SMALL",
-    "PUMP_SMALL",
-    "DUMP_SMALL"
+    "LV_DUMP_SMALL",
+    "HV_DUMP_SMALL",
+    "LV_STABLE"
   ],
   [
-    "STABLE",
-    "DUMP_HUGE",
-    "STABLE"
+    "HV_PUMP_SMALL",
+    "HV_STABLE",
+    "LV_PUMP_SMALL"
   ],
   [
-    "PUMP_SMALL",
-    "DUMP_SMALL",
-    "PUMP_SMALL"
+    "HV_STABLE",
+    "HV_DUMP_SMALL",
+    "HV_DUMP_SMALL"
   ],
   [
-    "DUMP_SMALL",
-    "DUMP_SMALL",
-    "DUMP_SMALL"
+    "LV_PUMP_SMALL",
+    "LV_STABLE",
+    "HV_DUMP_SMALL"
   ],
   [
-    "STABLE",
-    "DUMP_SMALL",
-    "PUMP_SMALL"
+    "HV_DUMP_SMALL",
+    "HV_PUMP_SMALL",
+    "HV_PUMP_SMALL"
   ],
   [
-    "STABLE",
-    "DUMP_HUGE",
-    "DUMP_SMALL"
+    "LV_STABLE",
+    "LV_DUMP_SMALL",
+    "HV_DUMP_SMALL"
   ],
   [
-    "DUMP_SMALL",
-    "PUMP_SMALL",
-    "STABLE"
+    "LV_DUMP_SMALL",
+    "LV_STABLE",
+    "LV_DUMP_SMALL"
   ],
   [
-    "DUMP_SMALL",
-    "STABLE",
-    "DUMP_SMALL"
+    "LV_PUMP_SMALL",
+    "HV_DUMP_SMALL",
+    "LV_STABLE"
   ],
   [
-    "PUMP_HUGE",
-    "STABLE",
-    "STABLE"
+    "LV_STABLE",
+    "LV_DUMP_SMALL",
+    "HV_PUMP_SMALL"
   ],
   [
-    "DUMP_SMALL",
-    "PUMP_SMALL",
-    "DUMP_SMALL"
+    "LV_STABLE",
+    "LV_PUMP_SMALL",
+    "LV_DUMP_SMALL"
   ],
   [
-    "PUMP_SMALL",
-    "PUMP_SMALL",
-    "STABLE"
+    "LV_DUMP_SMALL",
+    "HV_PUMP_SMALL",
+    "HV_PUMP_SMALL"
   ],
   [
-    "DUMP_SMALL",
-    "STABLE",
-    "STABLE"
+    "HV_PUMP_SMALL",
+    "LV_STABLE",
+    "HV_STABLE"
   ],
   [
-    "STABLE",
-    "PUMP_SMALL",
-    "PUMP_SMALL"
+    "LV_PUMP_SMALL",
+    "HV_PUMP_SMALL",
+    "LV_STABLE"
   ],
   [
-    "DUMP_SMALL",
-    "DUMP_SMALL",
-    "STABLE"
+    "HV_PUMP_SMALL",
+    "HV_STABLE",
+    "HV_DUMP_SMALL"
   ],
   [
-    "STABLE",
-    "DUMP_SMALL",
-    "STABLE"
+    "HV_STABLE",
+    "LV_DUMP_SMALL",
+    "HV_DUMP_SMALL"
   ],
   [
-    "PUMP_SMALL",
-    "STABLE",
-    "STABLE"
+    "HV_DUMP_SMALL",
+    "HV_DUMP_SMALL",
+    "HV_PUMP_SMALL"
   ],
   [
-    "PUMP_SMALL",
-    "STABLE",
-    "DUMP_SMALL"
+    "HV_STABLE",
+    "HV_PUMP_SMALL",
+    "LV_DUMP_SMALL"
   ],
   [
-    "PUMP_SMALL",
-    "DUMP_SMALL",
-    "STABLE"
+    "LV_PUMP_SMALL",
+    "HV_PUMP_SMALL",
+    "HV_STABLE"
   ],
   [
-    "STABLE",
-    "STABLE",
-    "PUMP_SMALL"
+    "LV_DUMP_SMALL",
+    "HV_PUMP_SMALL",
+    "LV_DUMP_SMALL"
   ],
   [
-    "STABLE",
-    "PUMP_SMALL",
-    "STABLE"
+    "HV_PUMP_SMALL",
+    "LV_DUMP_SMALL",
+    "LV_STABLE"
   ],
   [
-    "STABLE",
-    "STABLE",
-    "DUMP_SMALL"
+    "LV_PUMP_SMALL",
+    "HV_STABLE",
+    "LV_DUMP_SMALL"
   ],
   [
-    "PUMP_SMALL",
-    "STABLE",
-    "PUMP_SMALL"
+    "HV_STABLE",
+    "LV_DUMP_SMALL",
+    "LV_PUMP_SMALL"
   ],
   [
-    "DUMP_SMALL",
-    "STABLE",
-    "PUMP_SMALL"
+    "LV_PUMP_SMALL",
+    "LV_PUMP_SMALL",
+    "LV_DUMP_SMALL"
   ],
   [
-    "PUMP_SMALL",
-    "DUMP_SMALL",
-    "DUMP_SMALL"
+    "LV_DUMP_SMALL",
+    "HV_STABLE",
+    "HV_STABLE"
   ],
   [
-    "STABLE",
-    "STABLE",
-    "STABLE"
+    "HV_PUMP_SMALL",
+    "HV_PUMP_SMALL",
+    "HV_DUMP_SMALL"
   ],
   [
-    "DUMP_SMALL",
-    "DUMP_SMALL",
-    "PUMP_SMALL"
+    "LV_STABLE",
+    "LV_PUMP_SMALL",
+    "LV_PUMP_SMALL"
   ],
   [
-    "PUMP_SMALL",
-    "PUMP_SMALL",
-    "PUMP_SMALL"
+    "HV_STABLE",
+    "LV_STABLE",
+    "LV_DUMP_SMALL"
+  ],
+  [
+    "LV_PUMP_SMALL",
+    "LV_PUMP_SMALL",
+    "LV_STABLE"
+  ],
+  [
+    "LV_STABLE",
+    "HV_STABLE",
+    "LV_PUMP_SMALL"
+  ],
+  [
+    "HV_PUMP_SMALL",
+    "LV_STABLE",
+    "LV_PUMP_SMALL"
+  ],
+  [
+    "LV_STABLE",
+    "HV_DUMP_SMALL",
+    "LV_STABLE"
+  ],
+  [
+    "HV_PUMP_SMALL",
+    "LV_PUMP_SMALL",
+    "LV_DUMP_SMALL"
+  ],
+  [
+    "LV_STABLE",
+    "LV_DUMP_SMALL",
+    "LV_DUMP_SMALL"
+  ],
+  [
+    "HV_STABLE",
+    "LV_PUMP_SMALL",
+    "LV_STABLE"
+  ],
+  [
+    "LV_PUMP_SMALL",
+    "LV_STABLE",
+    "HV_STABLE"
+  ],
+  [
+    "LV_DUMP_SMALL",
+    "LV_DUMP_SMALL",
+    "LV_DUMP_SMALL"
+  ],
+  [
+    "LV_PUMP_SMALL",
+    "LV_DUMP_SMALL",
+    "HV_STABLE"
+  ],
+  [
+    "LV_DUMP_SMALL",
+    "LV_STABLE",
+    "HV_DUMP_SMALL"
+  ],
+  [
+    "LV_STABLE",
+    "LV_PUMP_SMALL",
+    "HV_PUMP_SMALL"
+  ],
+  [
+    "HV_PUMP_SMALL",
+    "HV_DUMP_SMALL",
+    "HV_PUMP_SMALL"
+  ],
+  [
+    "LV_STABLE",
+    "LV_STABLE",
+    "HV_DUMP_SMALL"
+  ],
+  [
+    "LV_DUMP_SMALL",
+    "LV_STABLE",
+    "HV_STABLE"
+  ],
+  [
+    "LV_STABLE",
+    "HV_DUMP_SMALL",
+    "HV_PUMP_SMALL"
+  ],
+  [
+    "HV_STABLE",
+    "HV_DUMP_SMALL",
+    "LV_PUMP_SMALL"
+  ],
+  [
+    "HV_STABLE",
+    "HV_PUMP_SMALL",
+    "HV_STABLE"
+  ],
+  [
+    "HV_STABLE",
+    "HV_PUMP_SMALL",
+    "HV_DUMP_SMALL"
   ]
 ]
