@@ -1,1 +1,1 @@
-[{"timestamp":"7/6/2026, 10:23:39 pm","decision":"SELL","reason":"🚨 Panic Mode — USDT premium critical","pattern":"EU_HV_STABLE ➡️ EU_LV_STABLE ➡️ EU_LV_STABLE","match":"❌ No Pattern","sentiment":3,"price":6321338,"volatility":0.3215526361268453,"premium":"6.72%","profit":-68.17}]
+[{"timestamp":"7/6/2026, 11:04:57 pm","decision":"SELL","reason":"🚨 Panic Mode — USDT premium critical","pattern":"EU_LV_STABLE ➡️ EU_HV_STABLE ➡️ EU_LV_STABLE","match":"❌ No Pattern","sentiment":2,"price":6321338,"volatility":0.0069812787500145995,"premium":"6.01%","profit":-99.31}]
