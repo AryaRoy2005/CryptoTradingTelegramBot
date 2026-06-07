@@ -13,6 +13,39 @@ def fetch_market_data(symbol="BTC-INR", period="max"):
     print(f"✅ Data Acquired: {len(df)} hours of trading history!")
     return df
 
+# def classify_market_event(row, avg_volume):
+#     if row['Open'] == 0:
+#         return "STABLE"
+    
+#     change_pct = ((row['Close'] - row['Open']) / row['Open']) * 100
+#     volume = row['Volume']
+    
+#     # Volume prefix
+#     vol_prefix = "HV" if volume >= avg_volume else "LV"
+    
+#     # Price classification
+#     if change_pct >= 1.5:
+#         price_label = "PUMP_HUGE"
+#     elif change_pct >= 0.3:
+#         price_label = "PUMP_SMALL"
+#     elif change_pct <= -1.5:
+#         price_label = "DUMP_HUGE"
+#     elif change_pct <= -0.3:
+#         price_label = "DUMP_SMALL"
+#     else:
+#         price_label = "STABLE"
+    
+#     return f"{vol_prefix}_{price_label}"
+
+def get_session(timestamp):
+    hour = pd.Timestamp(timestamp).hour
+    if 0 <= hour < 8:
+        return "ASIA"
+    elif 8 <= hour < 16:
+        return "EU"
+    else:
+        return "US"
+
 def classify_market_event(row, avg_volume):
     if row['Open'] == 0:
         return "STABLE"
@@ -20,31 +53,32 @@ def classify_market_event(row, avg_volume):
     change_pct = ((row['Close'] - row['Open']) / row['Open']) * 100
     volume = row['Volume']
     
-    # Volume prefix
     vol_prefix = "HV" if volume >= avg_volume else "LV"
+    session = get_session(row.name)  # row.name is the timestamp index
     
-    # Price classification
-    if change_pct >= 1.5:
-        price_label = "PUMP_HUGE"
-    elif change_pct >= 0.3:
-        price_label = "PUMP_SMALL"
-    elif change_pct <= -1.5:
-        price_label = "DUMP_HUGE"
-    elif change_pct <= -0.3:
-        price_label = "DUMP_SMALL"
-    else:
-        price_label = "STABLE"
+    if change_pct >= 1.5:       price_label = "PUMP_HUGE"
+    elif change_pct >= 0.3:     price_label = "PUMP_SMALL"
+    elif change_pct <= -1.5:    price_label = "DUMP_HUGE"
+    elif change_pct <= -0.3:    price_label = "DUMP_SMALL"
+    else:                       price_label = "STABLE"
     
-    return f"{vol_prefix}_{price_label}"
+    return f"{session}_{vol_prefix}_{price_label}"
 
 def mine_patterns(df):
-    print("⚙️ Applying Smart Classification...")
-    # Calculate rolling average volume (20-candle window)
+    # print("⚙️ Applying Smart Classification...")
+    # # Calculate rolling average volume (20-candle window)
+    # df['Avg_Volume'] = df['Volume'].rolling(window=20).mean()
+    # df['Avg_Volume'] = df['Avg_Volume'].fillna(df['Volume'].mean())
+
+    # # Updated apply call
+    # df['Event'] = df.apply(lambda row: classify_market_event(row, row['Avg_Volume']), axis=1)
+
     df['Avg_Volume'] = df['Volume'].rolling(window=20).mean()
     df['Avg_Volume'] = df['Avg_Volume'].fillna(df['Volume'].mean())
-
-    # Updated apply call
-    df['Event'] = df.apply(lambda row: classify_market_event(row, row['Avg_Volume']), axis=1)
+    
+    df['Event'] = df.apply(
+        lambda row: classify_market_event(row, row['Avg_Volume']), axis=1
+    )
     
     SEQUENCE_LENGTH = 3
     TARGET_PROFIT = 1.0      # 1% profit target (after fees ~0.6% net)
