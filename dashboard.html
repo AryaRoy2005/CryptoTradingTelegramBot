@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Indra Signal Dashboard</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.44.0/tabler-icons.min.css" />
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f5f5f3; color: #1a1a18; min-height: 100vh; padding: 24px 16px; }
+  .container { max-width: 860px; margin: 0 auto; }
+  .top-bar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; padding-bottom: 14px; border-bottom: 0.5px solid rgba(0,0,0,0.12); }
+  .top-bar h1 { font-size: 16px; font-weight: 500; }
+  .status-wrap { display: flex; align-items: center; gap: 8px; }
+  .status-dot { width: 7px; height: 7px; border-radius: 50%; background: #639922; }
+  .refresh-btn { font-size: 13px; color: #5f5e5a; cursor: pointer; display: flex; align-items: center; gap: 6px; background: #fff; border: 0.5px solid rgba(0,0,0,0.18); border-radius: 8px; padding: 5px 12px; }
+  .refresh-btn:hover { background: #f1efe8; }
+  .signal-card { border-radius: 12px; padding: 1.5rem; margin-bottom: 14px; display: flex; align-items: flex-start; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+  .signal-buy { background: #EAF3DE; border: 0.5px solid #3B6D11; }
+  .signal-sell { background: #FCEBEB; border: 0.5px solid #A32D2D; }
+  .signal-hold { background: #F1EFE8; border: 0.5px solid #5F5E5A; }
+  .signal-buy .sig-label, .signal-buy .sig-reason, .signal-buy .sig-pattern { color: #3B6D11; }
+  .signal-sell .sig-label, .signal-sell .sig-reason, .signal-sell .sig-pattern { color: #A32D2D; }
+  .signal-hold .sig-label, .signal-hold .sig-reason, .signal-hold .sig-pattern { color: #5F5E5A; }
+  .signal-buy .sig-decision { color: #27500A; }
+  .signal-sell .sig-decision { color: #791F1F; }
+  .signal-hold .sig-decision { color: #444441; }
+  .sig-label { font-size: 13px; font-weight: 500; margin-bottom: 4px; }
+  .sig-decision { font-size: 36px; font-weight: 500; line-height: 1.1; }
+  .sig-reason { font-size: 13px; margin-top: 6px; }
+  .sig-pattern { font-size: 12px; margin-top: 6px; opacity: 0.85; }
+  .sig-time { font-size: 12px; color: #888780; text-align: right; }
+  .sig-match { font-size: 12px; margin-top: 6px; text-align: right; }
+  .grid-4 { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 12px; margin-bottom: 14px; }
+  .metric { background: #ebebeb; border-radius: 8px; padding: 1rem; }
+  .metric-label { font-size: 13px; color: #5f5e5a; margin-bottom: 6px; }
+  .metric-value { font-size: 22px; font-weight: 500; }
+  .card { background: #fff; border: 0.5px solid rgba(0,0,0,0.1); border-radius: 12px; padding: 1rem 1.25rem; }
+  .section-label { font-size: 13px; font-weight: 500; color: #5f5e5a; margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.04em; }
+  .badge { display: inline-block; padding: 2px 8px; border-radius: 6px; font-size: 12px; font-weight: 500; }
+  .badge-buy { background: #EAF3DE; color: #27500A; }
+  .badge-sell { background: #FCEBEB; color: #791F1F; }
+  .badge-hold { background: #F1EFE8; color: #444441; }
+  .history-table { width: 100%; border-collapse: collapse; font-size: 13px; table-layout: fixed; }
+  .history-table th { text-align: left; padding: 8px 10px; color: #5f5e5a; font-weight: 500; border-bottom: 0.5px solid rgba(0,0,0,0.1); }
+  .history-table td { padding: 8px 10px; border-bottom: 0.5px solid rgba(0,0,0,0.07); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .error-msg { font-size: 13px; color: #a32d2d; background: #fcebeb; padding: 10px 14px; border-radius: 8px; margin-top: 12px; }
+  .loading-msg { font-size: 13px; color: #888780; margin-top: 24px; text-align: center; }
+  @media (prefers-color-scheme: dark) {
+    body { background: #1a1a18; color: #f1efe8; }
+    .metric { background: #2c2c2a; }
+    .metric-label { color: #b4b2a9; }
+    .card { background: #222220; border-color: rgba(255,255,255,0.1); }
+    .top-bar { border-color: rgba(255,255,255,0.1); }
+    .refresh-btn { background: #2c2c2a; border-color: rgba(255,255,255,0.15); color: #b4b2a9; }
+    .refresh-btn:hover { background: #383836; }
+    .history-table th { color: #b4b2a9; border-color: rgba(255,255,255,0.1); }
+    .history-table td { border-color: rgba(255,255,255,0.07); }
+    .section-label { color: #b4b2a9; }
+    .sig-time { color: #888780; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <div class="top-bar">
+    <div class="status-wrap">
+      <span class="status-dot" id="statusDot"></span>
+      <h1>Indra Signal Dashboard</h1>
+    </div>
+    <button class="refresh-btn" onclick="loadData()">
+      <i class="ti ti-refresh"></i> Refresh
+    </button>
+  </div>
+
+  <p class="loading-msg" id="loadingMsg">Loading signals...</p>
+  <p class="error-msg" id="errorMsg" style="display:none;"></p>
+
+  <div id="mainContent" style="display:none;">
+
+    <div id="signalCard" class="signal-card signal-hold">
+      <div>
+        <div class="sig-label">Latest signal</div>
+        <div class="sig-decision" id="sigDecision">—</div>
+        <div class="sig-reason" id="sigReason"></div>
+        <div class="sig-pattern" id="sigPattern"></div>
+      </div>
+      <div>
+        <div class="sig-time" id="sigTime"></div>
+        <div class="sig-match" id="sigMatch"></div>
+      </div>
+    </div>
+
+    <div class="grid-4">
+      <div class="metric">
+        <div class="metric-label">BTC price (INR)</div>
+        <div class="metric-value" id="mPrice">—</div>
+      </div>
+      <div class="metric">
+        <div class="metric-label">Sentiment</div>
+        <div class="metric-value" id="mSentiment">—</div>
+      </div>
+      <div class="metric">
+        <div class="metric-label">USDT premium</div>
+        <div class="metric-value" id="mPremium">—</div>
+      </div>
+      <div class="metric">
+        <div class="metric-label">Est. profit (10k)</div>
+        <div class="metric-value" id="mProfit">—</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="section-label">Last 10 signals</div>
+      <div style="overflow-x:auto;">
+        <table class="history-table">
+          <thead>
+            <tr>
+              <th style="width:26%;">Time</th>
+              <th style="width:12%;">Signal</th>
+              <th style="width:32%;">Reason</th>
+              <th style="width:15%;">Sentiment</th>
+              <th style="width:15%;">Profit</th>
+            </tr>
+          </thead>
+          <tbody id="historyBody"></tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+const DATA_URL = 'https://raw.githubusercontent.com/AryaRoy2005/CryptoTradingTelegramBot/main/signals.json';
+
+function cardClass(d) {
+  const v = (d||'').toUpperCase();
+  return v === 'BUY' ? 'signal-buy' : v === 'SELL' ? 'signal-sell' : 'signal-hold';
+}
+
+function badge(d) {
+  const v = (d||'').toUpperCase();
+  const cls = v === 'BUY' ? 'badge-buy' : v === 'SELL' ? 'badge-sell' : 'badge-hold';
+  return `<span class="badge ${cls}">${v||'—'}</span>`;
+}
+
+function fmtPrice(v) {
+  const n = parseFloat(v);
+  return isNaN(n) ? '—' : '₹' + Math.round(n).toLocaleString('en-IN');
+}
+
+function fmtProfit(v) {
+  const n = parseFloat(v);
+  if (isNaN(n)) return '—';
+  return (n >= 0 ? '+' : '') + '₹' + n.toFixed(2);
+}
+
+function profitColor(v) {
+  return parseFloat(v) >= 0 ? '#27500A' : '#791F1F';
+}
+
+async function loadData() {
+  document.getElementById('statusDot').style.background = '#EF9F27';
+  try {
+    const res = await fetch(DATA_URL + '?t=' + Date.now());
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    const signals = await res.json();
+    if (!Array.isArray(signals) || signals.length === 0) throw new Error('No signals found');
+
+    const latest = signals[0];
+    const sc = document.getElementById('signalCard');
+    sc.className = 'signal-card ' + cardClass(latest.decision);
+    document.getElementById('sigDecision').textContent = latest.decision || '—';
+    document.getElementById('sigReason').textContent = latest.reason || '';
+    document.getElementById('sigPattern').textContent = latest.pattern || '';
+    document.getElementById('sigTime').textContent = latest.timestamp || '';
+    document.getElementById('sigMatch').textContent = latest.match || '';
+    document.getElementById('mPrice').textContent = fmtPrice(latest.price);
+    document.getElementById('mSentiment').textContent = (latest.sentiment ?? '—') + ' / 10';
+    document.getElementById('mPremium').textContent = latest.premium || '—';
+    document.getElementById('mProfit').textContent = fmtProfit(latest.profit);
+
+    document.getElementById('historyBody').innerHTML = signals.map(s => `
+      <tr>
+        <td style="color:#888780;">${s.timestamp||'—'}</td>
+        <td>${badge(s.decision)}</td>
+        <td style="color:#888780;">${s.reason||'—'}</td>
+        <td>${s.sentiment??'—'} / 10</td>
+        <td style="color:${profitColor(s.profit)}">${fmtProfit(s.profit)}</td>
+      </tr>
+    `).join('');
+
+    document.getElementById('loadingMsg').style.display = 'none';
+    document.getElementById('mainContent').style.display = 'block';
+    document.getElementById('errorMsg').style.display = 'none';
+    document.getElementById('statusDot').style.background = '#639922';
+
+  } catch(e) {
+    document.getElementById('statusDot').style.background = '#E24B4A';
+    document.getElementById('loadingMsg').style.display = 'none';
+    document.getElementById('errorMsg').style.display = 'block';
+    document.getElementById('errorMsg').textContent = 'Could not load signals: ' + e.message;
+  }
+}
+
+loadData();
+setInterval(loadData, 60000);
+</script>
+</body>
+</html>
