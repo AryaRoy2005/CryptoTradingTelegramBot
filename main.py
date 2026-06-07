@@ -3,6 +3,83 @@ import pandas as pd
 import json
 from collections import defaultdict
 
+def mine_sell_patterns(df):
+    print("⚙️ Mining SELL patterns...")
+    
+    SEQUENCE_LENGTH = 3
+    DUMP_TARGET = -1.0      # 1% drop target
+    STOP_LOSS = 0.6         # 0.6% stop (price going UP stops the short)
+    MIN_OCCURRENCES = 20
+    MIN_WIN_RATE = 0.55
+    HOLDING_PERIODS = [1, 2, 3]
+    
+    pattern_tracker = defaultdict(lambda: {
+        'wins': 0, 'losses': 0, 'total': 0
+    })
+    
+    for i in range(len(df) - SEQUENCE_LENGTH - max(HOLDING_PERIODS)):
+        pattern = tuple(df['Event'].iloc[i : i + SEQUENCE_LENGTH])
+        entry_price = df['Open'].iloc[i + SEQUENCE_LENGTH]
+        if entry_price <= 0:
+            continue
+        
+        best_result = None
+        for holding in HOLDING_PERIODS:
+            result = simulate_sell_trade(df, i + SEQUENCE_LENGTH, holding, entry_price, DUMP_TARGET, STOP_LOSS)
+            if best_result is None or result['pnl'] < best_result['pnl']:
+                best_result = result
+        
+        stats = pattern_tracker[pattern]
+        stats['total'] += 1
+        if best_result['outcome'] == 'WIN':
+            stats['wins'] += 1
+        else:
+            stats['losses'] += 1
+    
+    sell_patterns = []
+    for pattern, stats in pattern_tracker.items():
+        if stats['total'] < MIN_OCCURRENCES:
+            continue
+        win_rate = stats['wins'] / stats['total']
+        if win_rate < MIN_WIN_RATE:
+            continue
+        sell_patterns.append({
+            'pattern': list(pattern),
+            'win_rate': round(win_rate * 100, 2),
+            'total_trades': stats['total']
+        })
+    
+    sell_patterns.sort(key=lambda x: x['win_rate'], reverse=True)
+    final_patterns = [p['pattern'] for p in sell_patterns[:50]]
+    
+    with open("golden_sell_patterns.json", "w") as f:
+        json.dump(final_patterns, f, indent=2)
+    
+    print(f"💎 Saved {len(final_patterns)} sell patterns.")
+
+
+def simulate_sell_trade(df, entry_idx, holding_periods, entry_price, target_pct, stop_pct):
+    for h in range(holding_periods):
+        if entry_idx + h >= len(df):
+            break
+        
+        candle_high = df['High'].iloc[entry_idx + h]
+        candle_low  = df['Low'].iloc[entry_idx + h]
+        
+        high_pct = ((candle_high - entry_price) / entry_price) * 100
+        low_pct  = ((candle_low  - entry_price) / entry_price) * 100
+        
+        # Stop loss — price went UP
+        if high_pct >= stop_pct:
+            return {'outcome': 'STOPPED', 'pnl': stop_pct}
+        
+        # Target — price dropped enough
+        if low_pct <= target_pct:
+            return {'outcome': 'WIN', 'pnl': target_pct}
+    
+    final_close = df['Close'].iloc[entry_idx + holding_periods - 1]
+    pnl = ((final_close - entry_price) / entry_price) * 100
+    return {'outcome': 'WIN' if pnl < 0 else 'LOSS', 'pnl': pnl}
 
 def fetch_market_data(symbol="BTC-INR", period="max"):
     print(f"⏳ Downloading MAX history for {symbol}...")
@@ -12,30 +89,6 @@ def fetch_market_data(symbol="BTC-INR", period="max"):
     df = df.dropna()
     print(f"✅ Data Acquired: {len(df)} hours of trading history!")
     return df
-
-# def classify_market_event(row, avg_volume):
-#     if row['Open'] == 0:
-#         return "STABLE"
-    
-#     change_pct = ((row['Close'] - row['Open']) / row['Open']) * 100
-#     volume = row['Volume']
-    
-#     # Volume prefix
-#     vol_prefix = "HV" if volume >= avg_volume else "LV"
-    
-#     # Price classification
-#     if change_pct >= 1.5:
-#         price_label = "PUMP_HUGE"
-#     elif change_pct >= 0.3:
-#         price_label = "PUMP_SMALL"
-#     elif change_pct <= -1.5:
-#         price_label = "DUMP_HUGE"
-#     elif change_pct <= -0.3:
-#         price_label = "DUMP_SMALL"
-#     else:
-#         price_label = "STABLE"
-    
-#     return f"{vol_prefix}_{price_label}"
 
 def get_session(timestamp):
     hour = pd.Timestamp(timestamp).hour
@@ -226,110 +279,15 @@ def simulate_trade(df, entry_idx, holding_periods, entry_price, target_pct, stop
     final_close = df['Close'].iloc[entry_idx + holding_periods - 1]
     pnl = ((final_close - entry_price) / entry_price) * 100
     outcome = 'WIN' if pnl > 0 else 'LOSS'
-    
+
     return {'outcome': outcome, 'pnl': pnl}
+
 
 if __name__ == "__main__":
     df = fetch_market_data()
     if not df.empty:
         mine_patterns(df)
+        mine_sell_patterns(df)
     else:
         print("❌ Error: No data fetched.")
 
-
-# import yfinance as yf
-# import pandas as pd
-# import json
-# from collections import Counter
-# import os
-
-# def fetch_market_data(symbol="BTC-INR", period="max"):
-    
-#     # Downloads historical market data from Yahoo Finance.
-    
-#     print(f"⏳ Downloading MAX history for {symbol}...")
-    
-#     # Fetch unlimited history
-#     df = yf.download(symbol, period=period, interval="1h", progress=False)
-    
-#     # Handle MultiIndex columns (fixes potential issues with newer yfinance versions)
-#     if isinstance(df.columns, pd.MultiIndex):
-#         df.columns = df.columns.get_level_values(0)
-    
-#     df = df.dropna()
-#     print(f"✅ Data Acquired: {len(df)} hours of trading history!")
-#     return df
-
-# def classify_market_event(row):
-    
-#     # Classifies a trading hour based on percentage change.
-    
-#     if row['Open'] == 0: return "STABLE"
-
-#     change_pct = ((row['Close'] - row['Open']) / row['Open']) * 100
-
-#     if change_pct >= 1.5: return "PUMP_HUGE"
-#     elif change_pct >= 0.3: return "PUMP_SMALL"
-#     elif change_pct <= -1.5: return "DUMP_HUGE"
-#     elif change_pct <= -0.3: return "DUMP_SMALL"
-#     else: return "STABLE"
-
-# def mine_patterns(df):
-
-#     # Scans data for patterns and OVERWRITES the JSON file.
-
-#     print("⚙️ Applying Smart Classification...")
-#     df['Event'] = df.apply(classify_market_event, axis=1)
-
-#     SEQUENCE_LENGTH = 3
-#     TARGET_PROFIT = 0.5  # 0.5% profit target
-#     sequences = []
-    
-#     print(f"⏳ Scanning for patterns leading to {TARGET_PROFIT}% profit...")
-
-#     # Logic to find winning sequences
-#     for i in range(len(df) - SEQUENCE_LENGTH - 1):
-#         current_pattern = df['Event'].iloc[i : i + SEQUENCE_LENGTH].tolist()
-#         next_open = df['Open'].iloc[i + SEQUENCE_LENGTH + 1]
-#         next_close = df['Close'].iloc[i + SEQUENCE_LENGTH + 1]
-        
-#         future_profit = 0
-#         if next_open > 0:
-#             future_profit = ((next_close - next_open) / next_open) * 100
-
-#         if future_profit >= TARGET_PROFIT:
-#             current_pattern.append("PROFIT_HIT")
-#             sequences.append(current_pattern)
-
-#     print(f"✅ Found {len(sequences)} winning trades.")
-
-#     if len(sequences) > 0:
-#         # Convert to string to count duplicates
-#         seq_strings = [json.dumps(seq) for seq in sequences]
-#         counts = Counter(seq_strings)
-
-#         golden_patterns = []
-        
-#         # Keep top 50 patterns that appear at least 5 times
-#         for seq_str, count in counts.most_common(50):
-#             if count >= 5:
-#                 full_seq = json.loads(seq_str)
-#                 golden_patterns.append(full_seq[:-1]) # Remove 'PROFIT_HIT'
-
-#         # Save to JSON (Overwrite Mode)
-#         filename = 'golden_patterns.json'
-        
-#         # 'w' mode truncates the file first, ensuring a clean overwrite
-#         with open(filename, 'w') as f:
-#             json.dump(golden_patterns, f)
-
-#         print(f"\n💎 SUCCESS! Overwrote {filename} with {len(golden_patterns)} fresh patterns.")
-#     else:
-#         print("❌ No matches found. File not updated.")
-
-# if __name__ == "__main__":
-#     df = fetch_market_data()
-#     if not df.empty:
-#         mine_patterns(df)
-#     else:
-#         print("❌ Error: No data fetched.")
