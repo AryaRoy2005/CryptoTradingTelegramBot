@@ -237,12 +237,12 @@
   [
     "US_LV_STABLE",
     "US_LV_STABLE",
-    "US_LV_PUMP_SMALL"
+    "US_HV_STABLE"
   ],
   [
     "US_LV_STABLE",
     "US_LV_STABLE",
-    "US_HV_STABLE"
+    "US_LV_PUMP_SMALL"
   ],
   [
     "ASIA_LV_STABLE",
