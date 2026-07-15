@@ -185,6 +185,11 @@
     "EU_HV_STABLE"
   ],
   [
+    "EU_LV_STABLE",
+    "EU_LV_STABLE",
+    "EU_LV_PUMP_SMALL"
+  ],
+  [
     "US_HV_STABLE",
     "US_HV_PUMP_SMALL",
     "US_LV_STABLE"
@@ -208,11 +213,6 @@
     "EU_LV_PUMP_SMALL",
     "EU_LV_STABLE",
     "EU_LV_STABLE"
-  ],
-  [
-    "EU_LV_STABLE",
-    "EU_LV_STABLE",
-    "EU_LV_PUMP_SMALL"
   ],
   [
     "EU_LV_STABLE",
