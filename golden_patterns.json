@@ -136,13 +136,13 @@
   ],
   [
     "EU_LV_STABLE",
-    "EU_HV_STABLE",
-    "EU_HV_PUMP_SMALL"
+    "EU_HV_DUMP_SMALL",
+    "EU_HV_STABLE"
   ],
   [
     "EU_LV_STABLE",
-    "EU_HV_DUMP_SMALL",
-    "EU_HV_STABLE"
+    "EU_HV_STABLE",
+    "EU_HV_PUMP_SMALL"
   ],
   [
     "EU_LV_PUMP_SMALL",
@@ -183,6 +183,11 @@
     "EU_LV_DUMP_SMALL",
     "EU_HV_STABLE",
     "EU_LV_STABLE"
+  ],
+  [
+    "EU_LV_STABLE",
+    "EU_LV_DUMP_SMALL",
+    "EU_HV_STABLE"
   ],
   [
     "ASIA_LV_DUMP_SMALL",
@@ -228,11 +233,6 @@
     "EU_LV_STABLE",
     "EU_LV_STABLE",
     "EU_LV_DUMP_SMALL"
-  ],
-  [
-    "EU_LV_STABLE",
-    "EU_LV_DUMP_SMALL",
-    "EU_HV_STABLE"
   ],
   [
     "US_HV_STABLE",
