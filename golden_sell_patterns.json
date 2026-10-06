@@ -225,6 +225,11 @@
     "ASIA_LV_STABLE"
   ],
   [
+    "US_LV_STABLE",
+    "ASIA_LV_STABLE",
+    "ASIA_LV_DUMP_SMALL"
+  ],
+  [
     "EU_HV_PUMP_SMALL",
     "EU_HV_STABLE",
     "EU_LV_STABLE"
@@ -243,10 +248,5 @@
     "US_LV_STABLE",
     "US_HV_STABLE",
     "US_LV_STABLE"
-  ],
-  [
-    "US_LV_STABLE",
-    "ASIA_LV_STABLE",
-    "ASIA_LV_DUMP_SMALL"
   ]
 ]
