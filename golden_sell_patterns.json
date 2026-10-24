@@ -105,13 +105,13 @@
     "ASIA_LV_PUMP_SMALL"
   ],
   [
-    "EU_HV_PUMP_SMALL",
     "EU_LV_STABLE",
+    "EU_HV_STABLE",
     "EU_LV_STABLE"
   ],
   [
+    "EU_HV_PUMP_SMALL",
     "EU_LV_STABLE",
-    "EU_HV_STABLE",
     "EU_LV_STABLE"
   ],
   [
